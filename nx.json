@@ -7,5 +7,19 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "keypad": {
+      "tags": [
+        "customer"
+      ]
+    },
+    "keypad-e2e": {
+      "tags": []
+    },
+    "keypadlib": {
+      "tags": [
+        "team:customer"
+      ]
+    }
+  }
 }

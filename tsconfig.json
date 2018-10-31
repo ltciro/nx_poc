@@ -16,6 +16,9 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@nxpoc/keypadlib": [
+        "libs/keypadlib/src/index.ts"
+      ]
     }
   },
   "exclude": [

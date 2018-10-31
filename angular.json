@@ -2,7 +2,167 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "keypad": {
+      "root": "apps/keypad/",
+      "sourceRoot": "apps/keypad/src",
+      "projectType": "application",
+      "prefix": "nxpoc",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "sass"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/keypad",
+            "index": "apps/keypad/src/index.html",
+            "main": "apps/keypad/src/main.ts",
+            "polyfills": "apps/keypad/src/polyfills.ts",
+            "tsConfig": "apps/keypad/tsconfig.app.json",
+            "assets": [
+              "apps/keypad/src/favicon.ico",
+              "apps/keypad/src/assets"
+            ],
+            "styles": [
+              "apps/keypad/src/styles.sass"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/keypad/src/environments/environment.ts",
+                  "with": "apps/keypad/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "keypad:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "keypad:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "keypad:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/keypad/src/test.ts",
+            "polyfills": "apps/keypad/src/polyfills.ts",
+            "tsConfig": "apps/keypad/tsconfig.spec.json",
+            "karmaConfig": "apps/keypad/karma.conf.js",
+            "styles": [
+              "apps/keypad/src/styles.sass"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/keypad/src/favicon.ico",
+              "apps/keypad/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/keypad/tsconfig.app.json",
+              "apps/keypad/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "keypad-e2e": {
+      "root": "apps/keypad-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/keypad-e2e/protractor.conf.js",
+            "devServerTarget": "keypad:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "keypad:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/keypad-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "keypadlib": {
+      "root": "libs/keypadlib",
+      "sourceRoot": "libs/keypadlib/src",
+      "projectType": "library",
+      "prefix": "nxpoc",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/keypadlib/src/test.ts",
+            "tsConfig": "libs/keypadlib/tsconfig.spec.json",
+            "karmaConfig": "libs/keypadlib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/keypadlib/tsconfig.lib.json",
+              "libs/keypadlib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
@@ -10,5 +170,6 @@
     },
     "defaultCollection": "@nrwl/schematics",
     "packageManager": "npm"
-  }
+  },
+  "defaultProject": "keypad"
 }
